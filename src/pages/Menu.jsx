@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ImSearch } from "react-icons/im";
 import Navbar from "../ui/Navbar.jsx";
 import HeroBanner from "../ui/HeroBanner.jsx";
@@ -6,6 +5,8 @@ import PromoBanner from "../ui/PromoBanner.jsx";
 import CategoryCard from "../ui/CategoryCard.jsx";
 import FoodCard from "../ui/FoodCard.jsx";
 import Footer from "../ui/Footer.jsx";
+import OrderSummary from "../ui/OrderSummary.jsx";
+import useAddToCart from "../hooks/useAddToCart.js";
 
 /**
  * Menu Page Component
@@ -18,25 +19,29 @@ import Footer from "../ui/Footer.jsx";
  * 2. Popular Categories - 3-column grid of food categories (responsive)
  * 3. Chef's Specials - Grid of food items with descriptions and prices
  * 4. Promotional Banner - Secondary full-width banner
- * 5. Footer - Reused footer component
- *
- * Data Arrays:
- *  - categories: Defined inline with title and image for each category
- *  - specials: Defined inline with complete food item details
+ * 5. Order Summary - Shows when item is clicked
+ * 6. Footer - Reused footer component
  *
  * Component Reusability:
  *  - CategoryCard: Reusable component for each category (uses .map())
  *  - FoodCard: Reusable component for each special item (uses .map())
  *  - HeroBanner & PromoBanner: Reusable banner components with different props
+ *  - useAddToCart: Consolidated hook for cart functionality
  *
  * Responsiveness:
  *  - Categories: 3 columns (lg) → 2 columns (md) → 1 column (sm/mobile)
  *  - Specials: Same responsive grid behavior
  *  - All text and spacing scales with screen size
- *  - No horizontal scrolling on any device
  */
 
 const Menu = () => {
+  // Use consolidated hook for cart functionality
+  const { cartMessage, handleAddToCart } = useAddToCart();
+
+  // Helper to parse price string to number
+  const parsePrice = (priceStr) =>
+    parseInt((priceStr || "").replace(/[^0-9]/g, ""), 10) || 0;
+
   // Data for popular categories
   const categories = [
     {
@@ -79,6 +84,7 @@ const Menu = () => {
       description:
         "Aromatic rice cooked in tomato sauce with perfectly grilled chicken",
       price: "₦2,500",
+      priceValue: 2500,
       image: "/food11.png",
     },
     {
@@ -87,6 +93,7 @@ const Menu = () => {
       description:
         "Chicken Nuggets with coleslaw coating and plantain served with hot rice",
       price: "₦2,500",
+      priceValue: 2500,
       image: "/food10.png",
     },
     {
@@ -95,6 +102,7 @@ const Menu = () => {
       description:
         "Aromatic rice cooked in tomato sauce with perfectly fried fish.",
       price: "₦2,800",
+      priceValue: 2800,
       image: "/food6.png",
     },
     {
@@ -103,30 +111,31 @@ const Menu = () => {
       description:
         "Creamy egusi soup with meat and fish, served with smooth pounded yam",
       price: "₦2,200",
+      priceValue: 2200,
       image: "/food12.png",
     },
     {
-      id: 4,
+      id: 41,
       name: "Egusi Soup with Pounded Yam",
       description:
         "Creamy egusi soup with meat and fish, served with smooth pounded yam",
       price: "₦2,200",
+      priceValue: 2200,
       image: "/food12.png",
     },
     {
-      id: 1,
+      id: 11,
       name: "Jollof Rice with Grilled Chicken",
       description:
         "Aromatic rice cooked in tomato sauce with perfectly grilled chicken",
       price: "₦2,500",
+      priceValue: 2500,
       image: "/food11.png",
     },
   ];
 
-  const [cartMessage, setCartMessage] = useState("");
-
   /**
-   * Handle button interactions
+   * Handle search submit
    * Currently UI-only with no backend logic
    */
   const handleSearch = (e) => {
@@ -134,15 +143,28 @@ const Menu = () => {
     // Placeholder for search functionality
   };
 
+  /**
+   * Handle category card click
+   * Placeholder for category filtering
+   */
   const handleCategoryClick = (categoryId) => {
-    // Placeholder for category filtering
     console.log("Category clicked:", categoryId);
   };
 
-  const handleAddToCart = (itemName) => {
-    // UI-only cart feedback message
-    setCartMessage(`Added "${itemName}" to cart!`);
-    setTimeout(() => setCartMessage(""), 3000);
+  /**
+   * Handle add to cart from FoodCard
+   * Uses consolidated hook for consistent behavior
+   */
+  const onAddToCart = (item) => {
+    handleAddToCart(item.name, {
+      id: item.id,
+      name: item.name,
+      image: item.image,
+      description: item.description,
+      unitPrice: item.priceValue || parsePrice(item.price),
+      qty: 1,
+      options: {},
+    });
   };
 
   return (
@@ -177,7 +199,6 @@ const Menu = () => {
         </section>
 
         {/* 2. POPULAR CATEGORIES SECTION */}
-        {/* POPULAR CATEGORIES */}
         <section className="w-full px-6 lg:px-16 py-16">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-3xl lg:text-2xl font-bold text-center mb-12">
@@ -198,7 +219,6 @@ const Menu = () => {
         </section>
 
         {/* 3. CHEF'S SPECIALS SECTION */}
-        {/* CHEF'S SPECIALS */}
         <section className="w-full px-6 lg:px-16 py-16">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-3xl lg:text-2xl font-bold text-center mb-12">
@@ -214,11 +234,13 @@ const Menu = () => {
                   name={item.name}
                   description={item.description}
                   price={item.price}
-                  onAddToCart={() => handleAddToCart(item.name)}
+                  priceValue={item.priceValue}
+                  onAddToCart={() => onAddToCart(item)}
                 />
               ))}
             </div>
 
+            {/* Cart Message Toast */}
             {cartMessage && (
               <div className="fixed bottom-8 right-6 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
                 {cartMessage}
@@ -238,6 +260,9 @@ const Menu = () => {
           />
         </section>
       </main>
+
+      {/* Order Summary - Shows when an item is clicked */}
+      <OrderSummary />
 
       {/* 5. FOOTER */}
       <Footer />

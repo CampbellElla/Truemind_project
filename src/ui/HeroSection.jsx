@@ -65,7 +65,10 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className="text-2xl font-bold text-orange-500 text-center">
+          <div
+            className="text-orange-500 text-2xl italic font-light tracking-wider mb-3"
+            style={{ fontFamily: ' "Island Moments, cursive"' }}
+          >
             Chuks Kitchen
           </div>
 
@@ -80,27 +83,58 @@ const HeroSection = () => {
             the rich culinary heritage of Nigeria right to your doorstep.
           </p>
 
-          {/* Features - INLINE (Not Cards) */}
-          <div className="space-y-3 pt-4 font-semibold">
-            <div className="flex items-center gap-3 text-sm text-gray-700">
-              <div className="bg-orange-200 rounded p-2 flex items-center justify-center">
-                <FiSun className="text-orange-500 text-lg" />
+          {/* Features */}
+          <div className="pt-4 font-semibold">
+            {/* Desktop → Inline */}
+            <div className="hidden lg:grid grid-col-2 items-center gap-x-8 gap-y-4 text-sm text-gray-700">
+              <div className="flex items-center gap-2">
+                <div className="bg-orange-200 rounded p-2 flex items-center justify-center">
+                  <FiSun className="text-orange-500 text-sm" />
+                </div>
+                <span className="whitespace-nowrap">Freshly Prepared</span>
               </div>
-              <span>Freshly Prepared</span>
 
-              <div className="flex items-center gap-3 text-sm text-gray-700">
+              <div className="flex items-center gap-2">
+                <div className="bg-orange-200 rounded p-2 flex items-center justify-center">
+                  <MdElectricBike className="text-orange-500 text-sm" />
+                </div>
+                <span className="whitespace-nowrap">
+                  Fast & Reliable Delivery
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2 col-span-2 justify-self-left">
+                <div className="bg-orange-200 rounded p-2 flex items-center justify-center">
+                  <ImSpoonKnife className="text-orange-500 text-sm" />
+                </div>
+                <span className="whitespace-nowrap">
+                  Support Local Business
+                </span>
+              </div>
+            </div>
+
+            {/* Mobile → Stacked Cards */}
+            <div className="space-y-3 lg:hidden mt-4">
+              <div className="flex items-center gap-3 bg-gray-100 p-3 rounded-lg text-sm text-gray-700">
+                <div className="bg-orange-200 rounded p-2 flex items-center justify-center">
+                  <FiSun className="text-orange-500 text-lg" />
+                </div>
+                <span>Freshly Prepared</span>
+              </div>
+
+              <div className="flex items-center gap-3 bg-gray-100 p-3 rounded-lg text-sm text-gray-700">
                 <div className="bg-orange-200 rounded p-2 flex items-center justify-center">
                   <MdElectricBike className="text-orange-500 text-lg" />
                 </div>
                 <span>Fast & Reliable Delivery</span>
               </div>
-            </div>
 
-            <div className="flex items-center gap-3 text-sm text-gray-700">
-              <div className="bg-orange-200 rounded p-2 flex items-center justify-center">
-                <ImSpoonKnife className="text-orange-500 text-lg" />
+              <div className="flex items-center gap-3 bg-gray-100 p-3 rounded-lg text-sm text-gray-700">
+                <div className="bg-orange-200 rounded p-2 flex items-center justify-center">
+                  <ImSpoonKnife className="text-orange-500 text-lg" />
+                </div>
+                <span>Support Local Business</span>
               </div>
-              <span>Support Local Business</span>
             </div>
           </div>
 
@@ -123,7 +157,7 @@ const HeroSection = () => {
           {/* Divider and copyright/links placed under Learn More About Us */}
           <div className="border-t border-gray-200 mt-6 pt-8 pb-9">
             <p className="text-center text-gray-800 text-xs font-semibold">
-              © 2024 Chuks Kitchen.
+              ©️ 2024 Chuks Kitchen.
               <a
                 href="#"
                 className="hover:text-orange-500 transition duration-200 ml-2 text-blue-500"

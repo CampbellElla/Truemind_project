@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Navbar from "../ui/Navbar.jsx";
 import Footer from "../ui/Footer.jsx";
 import { useCart } from "../context/CartContext.jsx";
+import OrderSummary from "../ui/OrderSummary.jsx";
 
 const mockFoods = [
   {
@@ -11,6 +12,7 @@ const mockFoods = [
     description:
       "Aromatic rice cooked in tomato sauce with perfectly grilled chicken",
     price: "₦2,500",
+    priceValue: 2500,
     image: "/food11.png",
     proteins: [
       { id: "pc", label: "Fried Chicken", price: 0 },
@@ -45,7 +47,7 @@ const FoodDetails = () => {
   const decrease = () => setQuantity((q) => Math.max(1, q - 1));
   const increase = () => setQuantity((q) => q + 1);
 
-  const { addItem } = useCart();
+  const { addItem, selectItem } = useCart();
 
   const parsePrice = (priceStr) =>
     parseInt((priceStr || "").replace(/[^0-9]/g, ""), 10) || 0;
@@ -81,6 +83,21 @@ const FoodDetails = () => {
     });
   };
 
+  /**
+   * Handle card click to show Order Summary
+   * This allows users to see the summary when clicking on the food item details
+   */
+  const handleFoodClick = () => {
+    selectItem({
+      id: food.id,
+      name: food.name,
+      image: food.image,
+      description: food.description,
+      price: food.price,
+      priceValue: food.priceValue || parsePrice(food.price),
+    });
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -88,7 +105,7 @@ const FoodDetails = () => {
       <main className="flex-grow w-full px-6 lg:px-16 py-16">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left: Image */}
-          <div>
+          <div className="cursor-pointer" onClick={handleFoodClick}>
             <img
               src={food.image}
               alt={food.name}
@@ -199,6 +216,9 @@ const FoodDetails = () => {
           </div>
         </div>
       </main>
+
+      {/* Order Summary - Shows when the food item image is clicked */}
+      <OrderSummary />
 
       <Footer />
     </div>

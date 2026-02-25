@@ -1,9 +1,10 @@
-import { useState } from "react";
 import Navbar from "../ui/Navbar.jsx";
 import ExploreHero from "../ui/ExploreHero.jsx";
 import CategorySidebar from "../ui/CategorySidebar.jsx";
 import FoodCard from "../ui/FoodCard.jsx";
 import Footer from "../ui/Footer.jsx";
+import OrderSummary from "../ui/OrderSummary.jsx";
+import useAddToCart from "../hooks/useAddToCart.js";
 
 /**
  * Explore Page Component
@@ -16,10 +17,18 @@ import Footer from "../ui/Footer.jsx";
  * 2. ExploreHero
  * 3. Categories sidebar + Popular grid
  * 4. Category group sections
- * 5. Footer
+ * 5. Order Summary (when item is clicked)
+ * 6. Footer
  */
 
 const Explore = () => {
+  // Use consolidated hook for cart functionality
+  const { cartMessage, handleAddToCart } = useAddToCart();
+
+  // Helper to parse price string to number
+  const parsePrice = (priceStr) =>
+    parseInt((priceStr || "").replace(/[^0-9]/g, ""), 10) || 0;
+
   // Data for popular items
   const popularItems = [
     {
@@ -28,6 +37,7 @@ const Explore = () => {
       description:
         "Our signature jollof rice, served with crispy fried chicken and plantain.",
       price: "₦3,500",
+      priceValue: 3500,
       image: "/food11.png",
     },
     {
@@ -36,6 +46,7 @@ const Explore = () => {
       description:
         "Hearty Egusi soup with tender goat meat, served with soft Eba.",
       price: "₦3,500",
+      priceValue: 3500,
       image: "/food21.png",
     },
     {
@@ -43,6 +54,7 @@ const Explore = () => {
       name: "Pounded Yam & Edika ikong",
       description: "Traditional pounded yam with rich, leafy Edika ikong soup.",
       price: "₦3,800",
+      priceValue: 3800,
       image: "/food20.png",
     },
     {
@@ -50,6 +62,7 @@ const Explore = () => {
       name: "Peppered Snail",
       description: "Spicy and Savory peppered snail, perfect as a starter.",
       price: "₦2,500",
+      priceValue: 2500,
       image: "/food8.png",
     },
     {
@@ -57,6 +70,7 @@ const Explore = () => {
       name: "Grilled Tilapia Fish",
       description: "Whole grilled tilapia seasoned with our special spices.",
       price: "₦4,500",
+      priceValue: 4500,
       image: "/food19.png",
     },
     {
@@ -65,6 +79,7 @@ const Explore = () => {
       description:
         "Our signature jollof rice, served with crispy fried chicken and plantain.",
       price: "₦3,500",
+      priceValue: 3500,
       image: "/food11.png",
     },
   ];
@@ -80,6 +95,7 @@ const Explore = () => {
           description:
             "Flavorful Jollof rice served with perfectly smoked fish",
           price: "₦3,500",
+          priceValue: 3500,
           image: "/food6.png",
         },
         {
@@ -87,13 +103,15 @@ const Explore = () => {
           name: "Party Jollof Rice (Veg)",
           description: "Vegetarian party jollof, full of rich flavors",
           price: "₦2,800",
+          priceValue: 2800,
           image: "/food11.png",
         },
         {
-          id: 8,
+          id: 81,
           name: "Party Jollof Rice (Veg)",
           description: "Vegetarian party jollof, full of rich flavors",
           price: "₦3,500",
+          priceValue: 3500,
           image: "/food11.png",
         },
       ],
@@ -107,6 +125,7 @@ const Explore = () => {
           description:
             "Classic amala served with Gbegiri(beans) and Ewedu (jute leaf) soup.",
           price: "₦3,100",
+          priceValue: 3100,
           image: "/food3.png",
         },
         {
@@ -115,25 +134,36 @@ const Explore = () => {
           description:
             "Light fufu served with fresh okra soup and tiliapia fish.",
           price: "₦3,300",
+          priceValue: 3300,
           image: "/food5.png",
         },
         {
-          id: 10,
+          id: 101,
           name: "Fufu & Okra Soup (Fish)",
           description:
             "Light fufu served with fresh okra soup and tiliapia fish.",
           price: "₦3,300",
+          priceValue: 3300,
           image: "/food5.png",
         },
       ],
     },
   ];
 
-  const [cartMessage, setCartMessage] = useState("");
-
-  const handleAddToCart = (itemName) => {
-    setCartMessage(`Added "${itemName}" to cart!`);
-    setTimeout(() => setCartMessage(""), 3000);
+  /**
+   * Handle add to cart from FoodCard
+   * Uses the consolidated hook for consistent behavior
+   */
+  const onAddToCart = (item) => {
+    handleAddToCart(item.name, {
+      id: item.id,
+      name: item.name,
+      image: item.image,
+      description: item.description,
+      unitPrice: item.priceValue || parsePrice(item.price),
+      qty: 1,
+      options: {},
+    });
   };
 
   return (
@@ -165,7 +195,8 @@ const Explore = () => {
                     name={item.name}
                     description={item.description}
                     price={item.price}
-                    onAddToCart={() => handleAddToCart(item.name)}
+                    priceValue={item.priceValue}
+                    onAddToCart={() => onAddToCart(item)}
                   />
                 ))}
               </div>
@@ -193,7 +224,8 @@ const Explore = () => {
                     name={item.name}
                     description={item.description}
                     price={item.price}
-                    onAddToCart={() => handleAddToCart(item.name)}
+                    priceValue={item.priceValue}
+                    onAddToCart={() => onAddToCart(item)}
                   />
                 ))}
               </div>
@@ -201,13 +233,16 @@ const Explore = () => {
           </section>
         ))}
 
-        {/* Cart Message */}
+        {/* Cart Message Toast */}
         {cartMessage && (
           <div className="fixed bottom-8 right-6 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
             {cartMessage}
           </div>
         )}
       </main>
+
+      {/* Order Summary - Shows when an item is clicked */}
+      <OrderSummary />
 
       {/* Footer */}
       <Footer />
