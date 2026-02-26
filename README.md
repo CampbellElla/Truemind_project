@@ -1,41 +1,74 @@
 # Chuks Kitchen - Frontend Website
 
-A modern, responsive food delivery website built with React.js, Vite, and Tailwind CSS. This is a frontend-only application showcasing an authentic Nigerian food brand with a landing page and authentication interface.
+A modern, responsive food delivery website built with React.js, Vite, and Tailwind CSS. This is a frontend-only application showcasing an authentic Nigerian food brand with a complete ordering system.
 
 ## 🎯 Project Overview
 
 **Chuks Kitchen** is a sleek, professional website designed to introduce users to authentic Nigerian cuisine and facilitate order placement. The application features:
 
-- **Landing Page**: Hero section with call-to-action buttons
+- **Onboarding Page**: Hero section with Chuks Kitchen branding and call-to-action buttons
+- **Menu Page**: Main food menu with categories, chef's specials, and promotional banners
+- **Explore Page**: Browse food items by category with popular items section
+- **Food Details Page**: Detailed view of each food item with customization options (protein, sides, special instructions)
 - **Authentication Page**: Login/Sign-up interface with split-screen design
+- **Orders Page**: View cart and order history
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
 - **Modern UI**: Clean, professional design using orange as the primary brand color
+
+## 🛤 Routing Structure
+
+| Route | Page | Description |
+|-------|------|-------------|
+| `/` | Menu | Main homepage with food menu and specials |
+| `/onboarding` | HeroSection | Onboarding/landing page with brand hero |
+| `/explore` | Explore | Browse food by categories |
+| `/food/:id` | FoodDetails | Detailed food item with customization |
+| `/orders` | Orders | Cart and order management |
+| `/auth` | Auth | Login/Signup page |
 
 ## 📁 Project Structure
 
 ```
-foodwebsite/
+chuks-kitchen/
 ├── src/
-│   ├── ui/                  # Reusable UI components
-│   │   ├── HeroSection.jsx  # Landing page split-screen hero (includes header/logo)
-│   │   ├── AuthForm.jsx     # Login/signup form with toggle
-│   │   └── Footer.jsx       # Multi-column footer (hidden on mobile, visible on lg+)
+│   ├── ui/                     # Reusable UI components
+│   │   ├── HeroSection.jsx     # Onboarding/landing page hero
+│   │   ├── Navbar.jsx          # Navigation bar with logo
+│   │   ├── AuthForm.jsx        # Login/signup form
+│   │   ├── FoodCard.jsx        # Food item card component
+│   │   ├── CategoryCard.jsx    # Category card component
+│   │   ├── CategorySidebar.jsx # Category sidebar for Explore
+│   │   ├── HeroBanner.jsx      # Hero banner component
+│   │   ├── PromoBanner.jsx     # Promotional banner
+│   │   ├── ExploreHero.jsx     # Explore page hero
+│   │   ├── OrderSummary.jsx    # Order summary overlay
+│   │   └── Footer.jsx          # Footer component
 │   │
-│   ├── pages/               # Page components (route targets)
-│   │   ├── Home.jsx         # Landing page (/)
-│   │   └── Auth.jsx         # Authentication page (/auth)
+│   ├── pages/                   # Page components (route targets)
+│   │   ├── Menu.jsx            # Main menu page (/)
+│   │   ├── Explore.jsx         # Explore page (/explore)
+│   │   ├── FoodDetails.jsx     # Food details page (/food/:id)
+│   │   ├── Orders.jsx          # Orders/cart page (/orders)
+│   │   ├── Auth.jsx           # Authentication page (/auth)
+│   │   └── Home.jsx           # Redirect to Menu
 │   │
-│   ├── App.jsx              # Main app with routing setup
-│   ├── main.jsx             # React entry point
-│   └── index.css            # Tailwind directives
+│   ├── context/                # React context providers
+│   │   └── CartContext.jsx    # Cart state management
+│   │
+│   ├── hooks/                  # Custom React hooks
+│   │   └── useAddToCart.js    # Add to cart with redirect
+│   │
+│   ├── App.jsx                 # Main app with routing
+│   ├── main.jsx               # React entry point
+│   └── index.css              # Tailwind directives
 │
-├── public/                  # Static assets
-├── index.html              # HTML entry point
-├── vite.config.js          # Vite configuration
-├── tailwind.config.js      # Tailwind CSS configuration
-├── postcss.config.js       # PostCSS configuration
-├── eslint.config.js        # ESLint configuration
-└── package.json            # Dependencies and scripts
+├── public/                     # Static assets (images)
+├── index.html                 # HTML entry point
+├── vite.config.js             # Vite configuration
+├── tailwind.config.js        # Tailwind CSS configuration
+├── postcss.config.js          # PostCSS configuration
+├── eslint.config.js           # ESLint configuration
+└── package.json               # Dependencies and scripts
 ```
 
 ## 🚀 Getting Started
@@ -79,20 +112,28 @@ npm run preview
 
 ## 🎨 Design Decisions
 
-## 🛠 Recent UI Updates
+## 🛠 Recent Updates
 
-- Removed the separate `Navbar.jsx` component. The small header (logo + `Sign In`) is now embedded inside `HeroSection.jsx`.
-- `HeroSection` header: logo displayed plainly; `Sign In` is a bordered blue button placed at the top with additional top margin. CTA buttons (`Start Your Order`, `Learn More About Us`) are stacked full-width on the hero and a divider + ©2024 / policy links are placed under the secondary CTA.
-- `AuthForm.jsx` updates:
-  - Email label is dynamic: shows "Email or phone number" in Login mode and "Email" in Create Account mode.
-  - Phone number field added for Create Account with a phone icon inside the input.
-  - Password field now has a floating label and a show/hide icon inside the input to toggle visibility.
-  - Confirm password field present on Create Account and placed after Password.
-  - Google sign-in button icon aligned and sized; social buttons use consistent flex centering.
-  - Spacing tightened between form sections for a more compact layout.
-- `Footer.jsx` updated to be hidden on mobile and visible at `lg` and above (Tailwind `hidden lg:block`).
+### Navigation & Routing
 
-These UI changes are primarily presentational; no backend/auth logic was added.
+- Added `/onboarding` route for the HeroSection (onboarding page)
+- Updated Navbar logo to link to `/onboarding` instead of `/`
+- "Learn More About Us" button now navigates to home page (`/`) instead of `/menu`
+- "Start Your Order" button navigates to `/auth` (authentication page)
+
+### Food Details Page
+
+- Expanded FoodDetails.jsx mock data to include all food items from Menu and Explore pages
+- Food items now display properly when clicked from Menu or Explore pages
+- Each food item includes customization options (proteins, sides, special instructions)
+- Quantity selector and Add to Cart functionality
+
+### User Flow
+
+1. Click **Chuks Kitchen** logo → `/onboarding` (onboarding page)
+2. Onboarding: **Start Your Order** → `/auth` (login/signup)
+3. Onboarding: **Learn More About Us** → `/` (main menu)
+4. Click any **food item** → `/food/:id` (detailed view with customization)
 
 ### Color Scheme
 
