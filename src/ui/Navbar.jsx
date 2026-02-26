@@ -30,7 +30,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-16 py-4">
         <div className="flex justify-between items-center">
           {/* Logo - Far Left */}
-          <Link to="/" className="flex items-center">
+          <Link to="/onboarding" className="flex items-center">
             <img 
               src="/Chuks Kitchen.png" 
               alt="Chuks Kitchen" 

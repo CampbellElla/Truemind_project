@@ -60,7 +60,7 @@ foodwebsite/
    ```
 
 3. **Open in browser:**
-   - The application will typically run on `http://localhost:5173`
+   - The application will typically run on `http://localhost:5174`
    - Check your terminal for the exact URL
 
 ### Build for Production

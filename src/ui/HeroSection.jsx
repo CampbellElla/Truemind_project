@@ -149,7 +149,7 @@ const HeroSection = () => {
             </button>
 
             <button
-              onClick={() => navigate("/menu")}
+              onClick={() => navigate("/")}
               className="w-full border border-blue-700 text-blue-700 py-3 rounded font-semibold hover:bg-gray-50 mb-24"
             >
               Learn More About Us

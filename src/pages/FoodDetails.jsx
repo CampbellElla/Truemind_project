@@ -25,6 +25,229 @@ const mockFoods = [
       { id: "sl", label: "Small Salad", price: 150 },
     ],
   },
+  {
+    id: 2,
+    name: "Jollof Rice with Chicken Nuggets",
+    description:
+      "With plantain, extra pepper sauce",
+    price: "₦2,500",
+    priceValue: 2500,
+    image: "/food10.png",
+    proteins: [
+      { id: "pc", label: "Chicken Nuggets", price: 0 },
+      { id: "gr", label: "Grilled Chicken", price: 200 },
+      { id: "bf", label: "Beef", price: 300 },
+    ],
+    sides: [
+      { id: "pl", label: "Plantain", price: 200 },
+      { id: "sl", label: "Small Salad", price: 150 },
+    ],
+  },
+  {
+    id: 3,
+    name: "Suya & Spicy Rice",
+    description:
+      "Aromatic rice cooked in tomato sauce with perfectly fried fish.",
+    price: "₦2,800",
+    priceValue: 2800,
+    image: "/food6.png",
+    proteins: [
+      { id: "su", label: "Suya", price: 0 },
+      { id: "gr", label: "Grilled Chicken", price: 200 },
+      { id: "bf", label: "Beef", price: 300 },
+    ],
+    sides: [
+      { id: "pl", label: "Plantain", price: 200 },
+      { id: "sl", label: "Small Salad", price: 150 },
+    ],
+  },
+  {
+    id: 4,
+    name: "Egusi Soup with Pounded Yam",
+    description:
+      "Creamy egusi soup with meat and fish, served with smooth pounded yam",
+    price: "₦2,200",
+    priceValue: 2200,
+    image: "/food12.png",
+    proteins: [
+      { id: "bf", label: "Beef", price: 0 },
+      { id: "ch", label: "Chicken", price: 200 },
+      { id: "fi", label: "Fish", price: 300 },
+    ],
+    sides: [
+      { id: "py", label: "Pounded Yam", price: 0 },
+      { id: "fu", label: "Fufu", price: 150 },
+      { id: "sg", label: "Semovita", price: 150 },
+    ],
+  },
+  {
+    id: 5,
+    name: "Grilled Tilapia Fish",
+    description: "Whole grilled tilapia seasoned with our special spices.",
+    price: "₦4,500",
+    priceValue: 4500,
+    image: "/food19.png",
+    proteins: [
+      { id: "ti", label: "Tilapia", price: 0 },
+      { id: "ct", label: "Catfish", price: 500 },
+    ],
+    sides: [
+      { id: "pl", label: "Plantain", price: 200 },
+      { id: "ri", label: "Rice", price: 150 },
+    ],
+  },
+  {
+    id: 6,
+    name: "Jollof Rice & Fried Chicken",
+    description:
+      "Our signature jollof rice, served with crispy fried chicken and plantain.",
+    price: "₦3,500",
+    priceValue: 3500,
+    image: "/food11.png",
+    proteins: [
+      { id: "fc", label: "Fried Chicken", price: 0 },
+      { id: "gr", label: "Grilled Chicken", price: 200 },
+    ],
+    sides: [
+      { id: "pl", label: "Plantain", price: 200 },
+      { id: "sl", label: "Small Salad", price: 150 },
+    ],
+  },
+  {
+    id: 7,
+    name: "Jollof Rice & Smoked Fish",
+    description:
+      "Flavorful Jollof rice served with perfectly smoked fish",
+    price: "₦3,500",
+    priceValue: 3500,
+    image: "/food6.png",
+    proteins: [
+      { id: "sf", label: "Smoked Fish", price: 0 },
+      { id: "gr", label: "Grilled Chicken", price: 200 },
+    ],
+    sides: [
+      { id: "pl", label: "Plantain", price: 200 },
+      { id: "sl", label: "Small Salad", price: 150 },
+    ],
+  },
+  {
+    id: 8,
+    name: "Party Jollof Rice (Veg)",
+    description: "Vegetarian party jollof, full of rich flavors",
+    price: "₦2,800",
+    priceValue: 2800,
+    image: "/food11.png",
+    proteins: [
+      { id: "ve", label: "Vegetarian", price: 0 },
+    ],
+    sides: [
+      { id: "pl", label: "Plantain", price: 200 },
+      { id: "sl", label: "Small Salad", price: 150 },
+    ],
+  },
+  {
+    id: 81,
+    name: "Party Jollof Rice (Veg)",
+    description: "Vegetarian party jollof, full of rich flavors",
+    price: "₦3,500",
+    priceValue: 3500,
+    image: "/food11.png",
+    proteins: [
+      { id: "ve", label: "Vegetarian", price: 0 },
+    ],
+    sides: [
+      { id: "pl", label: "Plantain", price: 200 },
+      { id: "sl", label: "Small Salad", price: 150 },
+    ],
+  },
+  {
+    id: 9,
+    name: "Amala with Gbegiri & Ewedu",
+    description:
+      "Classic amala served with Gbegiri(beans) and Ewedu (jute leaf) soup.",
+    price: "₦3,100",
+    priceValue: 3100,
+    image: "/food3.png",
+    proteins: [
+      { id: "bf", label: "Beef", price: 0 },
+      { id: "ch", label: "Chicken", price: 200 },
+      { id: "fi", label: "Fish", price: 300 },
+    ],
+    sides: [
+      { id: "am", label: "Amala", price: 0 },
+    ],
+  },
+  {
+    id: 10,
+    name: "Fufu & Okra Soup (Fish)",
+    description:
+      "Light fufu served with fresh okra soup and tiliapia fish.",
+    price: "₦3,300",
+    priceValue: 3300,
+    image: "/food5.png",
+    proteins: [
+      { id: "fi", label: "Fish", price: 0 },
+      { id: "bf", label: "Beef", price: 200 },
+      { id: "ch", label: "Chicken", price: 200 },
+    ],
+    sides: [
+      { id: "fu", label: "Fufu", price: 0 },
+    ],
+  },
+  {
+    id: 101,
+    name: "Fufu & Okra Soup (Fish)",
+    description:
+      "Light fufu served with fresh okra soup and tiliapia fish.",
+    price: "₦3,300",
+    priceValue: 3300,
+    image: "/food5.png",
+    proteins: [
+      { id: "fi", label: "Fish", price: 0 },
+      { id: "bf", label: "Beef", price: 200 },
+      { id: "ch", label: "Chicken", price: 200 },
+    ],
+    sides: [
+      { id: "fu", label: "Fufu", price: 0 },
+    ],
+  },
+  {
+    id: 11,
+    name: "Jollof Rice with Grilled Chicken",
+    description:
+      "Aromatic rice cooked in tomato sauce with perfectly grilled chicken",
+    price: "₦2,500",
+    priceValue: 2500,
+    image: "/food11.png",
+    proteins: [
+      { id: "pc", label: "Fried Chicken", price: 0 },
+      { id: "gr", label: "Grilled Chicken", price: 200 },
+      { id: "bf", label: "Beef", price: 300 },
+    ],
+    sides: [
+      { id: "pl", label: "Plantain", price: 200 },
+      { id: "sl", label: "Small Salad", price: 150 },
+    ],
+  },
+  {
+    id: 41,
+    name: "Egusi Soup with Pounded Yam",
+    description:
+      "Creamy egusi soup with meat and fish, served with smooth pounded yam",
+    price: "₦2,200",
+    priceValue: 2200,
+    image: "/food12.png",
+    proteins: [
+      { id: "bf", label: "Beef", price: 0 },
+      { id: "ch", label: "Chicken", price: 200 },
+      { id: "fi", label: "Fish", price: 300 },
+    ],
+    sides: [
+      { id: "py", label: "Pounded Yam", price: 0 },
+      { id: "fu", label: "Fufu", price: 150 },
+      { id: "sg", label: "Semovita", price: 150 },
+    ],
+  },
 ];
 
 const FoodDetails = () => {

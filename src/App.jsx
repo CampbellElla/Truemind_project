@@ -21,6 +21,7 @@ import Menu from "./pages/Menu.jsx";
 import Explore from "./pages/Explore.jsx";
 import FoodDetails from "./pages/FoodDetails.jsx";
 import Orders from "./pages/Orders.jsx";
+import HeroSection from "./ui/HeroSection.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 
 function App() {
@@ -28,6 +29,9 @@ function App() {
     <CartProvider>
       <BrowserRouter>
         <Routes>
+          {/* Onboarding/Hero Section Page */}
+          <Route path="/onboarding" element={<HeroSection />} />
+
           {/* Menu Page (Food items - main homepage content) */}
           <Route path="/" element={<Menu />} />
 
