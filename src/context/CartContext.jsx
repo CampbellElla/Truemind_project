@@ -4,8 +4,6 @@ const CartContext = createContext(null);
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-
-  // Track the currently selected/clicked food item for Order Summary
   const [selectedItem, setSelectedItem] = useState(null);
 
   /**
@@ -21,6 +19,7 @@ export const CartProvider = ({ children }) => {
           JSON.stringify(c.options || {}) ===
             JSON.stringify(item.options || {}),
       );
+      
       if (matchIndex > -1) {
         const next = [...prev];
         next[matchIndex] = {
@@ -102,6 +101,7 @@ export const CartProvider = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCart = () => {
   const ctx = useContext(CartContext);
   if (!ctx) throw new Error("useCart must be used within CartProvider");

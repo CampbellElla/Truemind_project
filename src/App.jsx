@@ -5,27 +5,17 @@
  * It defines the main routes and their corresponding page components.
  *
  * Routing Structure:
- * - / : Home page (landing page)
+ * - / : Menu page (food items - main homepage content)
  * - /auth : Authentication page (login/signup)
+ * - All other routes redirect to / (Menu)
  *
  * Router Setup:
  * - BrowserRouter: Enables client-side routing
  * - Routes: Container for all route definitions
  * - Route: Individual route definitions with path and element
- *
- * Layout Notes:
- * - Each page component (Home, Auth) includes its own Navbar and Footer
- * - This allows flexibility for future pages with different layouts
- * - No global layout wrapper to maintain component independence
- *
- * Future Scalability:
- * - Add more routes as the application grows
- * - Consider refactoring to a Layout component if all pages share Navbar/Footer
- * - Could add ProtectedRoute component for authentication later
  */
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home.jsx";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Auth from "./pages/Auth.jsx";
 import Menu from "./pages/Menu.jsx";
 import Explore from "./pages/Explore.jsx";
@@ -38,21 +28,23 @@ function App() {
     <CartProvider>
       <BrowserRouter>
         <Routes>
-          {/* Landing Page Route */}
-          <Route path="/" element={<Home />} />
+          {/* Menu Page (Food items - main homepage content) */}
+          <Route path="/" element={<Menu />} />
 
           {/* Authentication Page Route */}
           <Route path="/auth" element={<Auth />} />
 
-          {/* Menu Page Route */}
-          <Route path="/menu" element={<Menu />} />
-
           {/* Explore Page Route */}
           <Route path="/explore" element={<Explore />} />
+
           {/* Food Details Route */}
           <Route path="/food/:id" element={<FoodDetails />} />
-          {/* Orders Page (My Orders) */}
+
+          {/* Orders Page (My Orders/Cart) */}
           <Route path="/orders" element={<Orders />} />
+
+          {/* Redirect all other routes to home (Menu) */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </CartProvider>

@@ -22,8 +22,8 @@ import useAddToCart from "../hooks/useAddToCart.js";
  */
 
 const Explore = () => {
-  // Use consolidated hook for cart functionality
-  const { cartMessage, handleAddToCart } = useAddToCart();
+  // Use consolidated hook for cart functionality with redirect
+  const { cartMessage, handleAddToCart, redirectToOrderSummary } = useAddToCart();
 
   // Helper to parse price string to number
   const parsePrice = (priceStr) =>
@@ -153,6 +153,7 @@ const Explore = () => {
   /**
    * Handle add to cart from FoodCard
    * Uses the consolidated hook for consistent behavior
+   * IMPROVEMENT: Added redirect to Order Summary after adding item
    */
   const onAddToCart = (item) => {
     handleAddToCart(item.name, {
@@ -163,7 +164,7 @@ const Explore = () => {
       unitPrice: item.priceValue || parsePrice(item.price),
       qty: 1,
       options: {},
-    });
+    }, redirectToOrderSummary); // Redirect to Order Summary after add
   };
 
   return (
@@ -197,6 +198,7 @@ const Explore = () => {
                     price={item.price}
                     priceValue={item.priceValue}
                     onAddToCart={() => onAddToCart(item)}
+                    buttonStyle="icon"
                   />
                 ))}
               </div>
@@ -226,6 +228,7 @@ const Explore = () => {
                     price={item.price}
                     priceValue={item.priceValue}
                     onAddToCart={() => onAddToCart(item)}
+                    buttonStyle="icon"
                   />
                 ))}
               </div>

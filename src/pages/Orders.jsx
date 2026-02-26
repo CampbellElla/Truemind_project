@@ -5,9 +5,21 @@ import Footer from "../ui/Footer.jsx";
 import { FiTrash2, FiPlus, FiMinus } from "react-icons/fi";
 import { useCart } from "../context/CartContext.jsx";
 
+/**
+ * Orders Component - My Orders/Cart Page
+ *
+ * Displays all orders in the cart with quantity controls,
+ * remove functionality, and checkout option.
+ *
+ * Mobile Responsive:
+ * - Cart items stack vertically on mobile
+ * - Quantity controls are larger and touch-friendly
+ * - Better spacing and layout for small screens
+ */
+
 const Orders = () => {
   const { cart, updateQty, removeItem } = useCart();
-
+  
   const subtotal = useMemo(
     () => cart.reduce((s, it) => s + (it.unitPrice || 0) * it.qty, 0),
     [cart],
@@ -17,102 +29,97 @@ const Orders = () => {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Navbar />
 
-      <main className="flex-grow w-full px-4 sm:px-6 lg:px-16 py-8 lg:py-16">
-        <div className="max-w-7xl mx-auto">
-          {/* Section Title */}
-          <h1 className="text-2xl sm:text-3xl font-bold mb-6 lg:mb-8 text-gray-900">
-            Your Cart
-          </h1>
+      <main className="flex-grow w-full px-4 sm:px-6 lg:px-16 py-8 sm:py-12">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8">Your Cart</h1>
 
-          {/* Cart Container */}
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             {cart.length === 0 ? (
-              /* Empty Cart State */
               <div className="p-8 sm:p-12">
-                <div className="w-20 h-20 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
-                  <FiPlus className="text-3xl text-gray-400" />
+                <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 bg-gray-100 rounded-full flex items-center justify-center">
+                  <FiPlus className="text-2xl sm:text-3xl text-gray-400" />
                 </div>
-                <p className="text-lg font-semibold text-gray-700 mb-2">
+                <p className="text-base sm:text-lg font-semibold text-gray-700 mb-2 sm:mb-3 text-center">
                   Your cart is empty
                 </p>
-                <p className="text-sm text-gray-500 mb-6">
+                <p className="text-sm sm:text-base text-gray-500 mb-6 text-center">
                   Looks like you haven't added any items yet
                 </p>
                 <Link
                   to="/menu"
-                  className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+                  className="block w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded text-center mx-auto"
+                  style={{ maxWidth: '200px' }}
                 >
                   Explore Menu
                 </Link>
               </div>
             ) : (
-              /* Cart Items - ADJUSTED: Reduced padding for cleaner look */
-              <div className="p-3 sm:p-4">
+              <div className="p-4 sm:p-6 lg:p-8">
                 <div className="divide-y divide-gray-100">
                   {cart.map((item, index) => (
                     <div
                       key={`${item.id}-${index}`}
-                      className="py-3 first:pt-0 last:pb-0"
+                      className="py-4 sm:py-6 first:pt-0 last:pb-0"
                     >
-                      {/* Cart Item Row - ADJUSTED: Compact spacing */}
-                      <div className="flex items-center gap-2 sm:gap-3">
-                        {/* Image - ADJUSTED: Reduced size from 14/16 to 12/14 */}
-                        <div className="flex-shrink-0">
+                      {/* Mobile-first: Stacked layout */}
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                        {/* Image */}
+                        <div className="flex-shrink-0 self-start sm:self-center">
                           <img
                             src={item.image}
                             alt={item.name}
-                            className="w-12 h-12 sm:w-14 sm:h-14 object-cover rounded-md"
+                            className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg"
                           />
                         </div>
 
-                        {/* Name & Description - ADJUSTED: Smaller text */}
+                        {/* Item Details */}
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-bold text-gray-900 text-xs sm:text-sm truncate">
+                          <h3 className="font-semibold text-gray-900 text-sm sm:text-base">
                             {item.name}
                           </h3>
-                          <p className="text-xs text-gray-500 line-clamp-1">
-                            {item.options?.summary || item.description || ""}
+                          <p className="text-xs sm:text-sm text-gray-600 mt-1 line-clamp-2">
+                            {item.description || item.options?.summary}
                           </p>
+                          
+                          {/* Price on mobile */}
+                          <div className="font-bold text-orange-500 mt-2 sm:hidden">
+                            ₦{((item.unitPrice || 0) * item.qty).toLocaleString()}
+                          </div>
                         </div>
 
-                        {/* ADJUSTED: Quantity & Price grouped together and centered */}
-                        <div className="flex items-center gap-2">
-                          {/* Quantity Controls - ADJUSTED: Compact height h-8 */}
-                          <div className="flex items-center justify-center border border-gray-200 rounded h-8">
-                            <button
-                              onClick={() =>
-                                updateQty(item.id, Math.max(1, item.qty - 1))
-                              }
-                              className="px-2 py-1 hover:bg-gray-50 transition-colors flex items-center justify-center"
-                            >
-                              <FiMinus className="text-xs" />
-                            </button>
-                            <div className="px-2 py-1 min-w-[1.5rem] text-center font-bold text-gray-700 text-xs">
-                              {item.qty}
-                            </div>
+                        {/* Quantity Controls - Mobile responsive */}
+                        <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-4 mt-2 sm:mt-0">
+                          {/* Quantity Controls - + qty - order */}
+                          <div className="flex items-center gap-2 sm:gap-3">
                             <button
                               onClick={() => updateQty(item.id, item.qty + 1)}
-                              className="px-2 py-1 hover:bg-gray-50 transition-colors flex items-center justify-center"
+                              className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-gray-100 rounded-lg hover:bg-gray-200 text-gray-600 text-sm sm:text-base"
                             >
-                              <FiPlus className="text-xs" />
+                              <FiPlus />
+                            </button>
+                            <span className="w-12 text-center font-medium text-sm sm:text-base tabular-nums">
+                              {item.qty}
+                            </span>
+                            <button
+                              onClick={() => updateQty(item.id, Math.max(1, item.qty - 1))}
+                              className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center bg-gray-100 rounded-lg hover:bg-gray-200 text-gray-600 text-sm sm:text-base"
+                            >
+                              <FiMinus />
                             </button>
                           </div>
 
-                          {/* ADJUSTED: Price placed directly beside quantity with small gap-2 */}
-                          <div className="text-sm font-bold text-orange-500 whitespace-nowrap">
-                            ₦
-                            {(
-                              (item.unitPrice || 0) * item.qty
-                            ).toLocaleString()}
+                          {/* Price on desktop */}
+                          <div className="hidden sm:block font-bold text-orange-500 text-sm sm:text-base ml-2">
+                            ₦{((item.unitPrice || 0) * item.qty).toLocaleString()}
                           </div>
 
                           {/* Delete Button */}
                           <button
                             onClick={() => removeItem(item.id)}
-                            className="flex-shrink-0 text-gray-400 hover:text-red-500 p-1 transition-colors"
+                            className="p-2 text-gray-400 hover:text-red-500 transition-colors"
                             aria-label="Remove item"
                           >
-                            <FiTrash2 className="text-sm" />
+                            <FiTrash2 className="text-lg" />
                           </button>
                         </div>
                       </div>
@@ -120,35 +127,29 @@ const Orders = () => {
                   ))}
                 </div>
 
-                {/* Add More Items Link */}
-                <div className="mt-3">
+                <div className="mt-4 sm:mt-6">
                   <Link
                     to="/menu"
-                    className="text-blue-600 hover:text-blue-700 text-xs sm:text-sm font-medium"
+                    className="text-blue-600 hover:text-blue-700 text-sm sm:text-base font-medium"
                   >
-                    + Add more items from Chuks
+                    + Add more items
                   </Link>
                 </div>
 
-                {/* Subtotal Section */}
-                <div className="mt-4 pt-4 border-t border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <div className="text-sm sm:text-base font-medium text-gray-600">
+                <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-100">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 sm:mb-6">
+                    <div className="text-base font-medium text-gray-600 order-2 sm:order-1">
                       Subtotal
                     </div>
-                    <div className="text-lg sm:text-xl font-bold text-orange-500">
+                    <div className="text-xl sm:text-2xl font-bold text-orange-500 order-1 sm:order-2">
                       ₦{subtotal.toLocaleString()}
                     </div>
                   </div>
 
-                  {/* Checkout Button - Sized to fit content - reduced py/px */}
-                  <div className="flex justify-end mt-4">
-                    <Link
-                      to="/orders"
-                      className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors text-sm inline-block text-center"
-                    >
+                  <div className="flex justify-end">
+                    <button className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded text-base sm:text-lg">
                       Proceed to Checkout
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>

@@ -29,10 +29,71 @@ const Navbar = () => {
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-6 lg:px-16 py-4">
         <div className="flex justify-between items-center">
-          {/* Logo */}
-          <Link to="/" className="text-lg font-bold text-orange-500">
-            Chuks Kitchen
+          {/* Logo - Far Left */}
+          <Link to="/" className="flex items-center">
+            <img 
+              src="/Chuks Kitchen.png" 
+              alt="Chuks Kitchen" 
+              className="h-8 w-auto"
+            />
           </Link>
+
+          {/* Desktop Navigation - Distributed Layout */}
+          <div className="hidden md:flex items-center justify-between flex-1 max-w-xl mx-8">
+            {/* Home - Left */}
+            <Link
+              to="/"
+              className={`font-semibold transition-colors duration-200 ${
+                isActive("/")
+                  ? "text-orange-500"
+                  : "text-gray-700 hover:text-orange-500"
+              }`}
+            >
+              Home
+            </Link>
+
+            {/* Explore - Center */}
+            <Link
+              to="/explore"
+              className={`font-semibold transition-colors duration-200 ${
+                isActive("/explore")
+                  ? "text-orange-500"
+                  : "text-gray-700 hover:text-orange-500"
+              }`}
+            >
+              Explore
+            </Link>
+
+            {/* My Orders - Slightly Right of Center */}
+            <Link
+              to="/orders"
+              className={`font-semibold transition-colors duration-200 ${
+                isActive("/orders")
+                  ? "text-orange-500"
+                  : "text-gray-700 hover:text-orange-500"
+              }`}
+            >
+              My Orders
+            </Link>
+
+            {/* Account - Far Right */}
+            <span
+              className="font-semibold text-gray-400 cursor-not-allowed"
+              title="Account page coming soon"
+            >
+              Account
+            </span>
+          </div>
+
+          {/* Login Button - Far Right */}
+          <div className="hidden md:block ml-8">
+            <Link
+              to="/auth"
+              className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded transition-colors duration-200"
+            >
+              Login
+            </Link>
+          </div>
 
           {/* Hamburger Button (Mobile Only) */}
           <button
@@ -41,82 +102,57 @@ const Navbar = () => {
           >
             ☰
           </button>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            <NavLinks isActive={isActive} />
-          </div>
         </div>
 
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden mt-4 flex flex-col gap-4">
-            <NavLinks isActive={isActive} setIsOpen={setIsOpen} />
+            <Link
+              to="/"
+              onClick={() => setIsOpen(false)}
+              className={`font-semibold ${
+                isActive("/")
+                  ? "text-orange-500"
+                  : "text-gray-700 hover:text-orange-500"
+              }`}
+            >
+              Home
+            </Link>
+            <Link
+              to="/explore"
+              onClick={() => setIsOpen(false)}
+              className={`font-semibold ${
+                isActive("/explore")
+                  ? "text-orange-500"
+                  : "text-gray-700 hover:text-orange-500"
+              }`}
+            >
+              Explore
+            </Link>
+            <Link
+              to="/orders"
+              onClick={() => setIsOpen(false)}
+              className={`font-semibold ${
+                isActive("/orders")
+                  ? "text-orange-500"
+                  : "text-gray-700 hover:text-orange-500"
+              }`}
+            >
+              My Orders
+            </Link>
+            <span className="font-semibold text-gray-400">Account</span>
+            <Link
+              to="/auth"
+              onClick={() => setIsOpen(false)}
+              className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded w-fit"
+            >
+              Login
+            </Link>
           </div>
         )}
       </div>
     </nav>
   );
 };
-
-const NavLinks = ({ isActive, setIsOpen }) => (
-  <>
-    <Link
-      to="/menu"
-      onClick={() => setIsOpen && setIsOpen(false)}
-      className={`font-semibold ${
-        isActive("/menu")
-          ? "text-orange-500"
-          : "text-gray-700 hover:text-orange-500"
-      }`}
-    >
-      Home
-    </Link>
-
-    <Link
-      to="/explore"
-      onClick={() => setIsOpen && setIsOpen(false)}
-      className={`font-semibold ${
-        isActive("/explore")
-          ? "text-orange-500"
-          : "text-gray-700 hover:text-orange-500"
-      }`}
-    >
-      Explore
-    </Link>
-
-    <Link
-      to="/orders"
-      onClick={() => setIsOpen && setIsOpen(false)}
-      className={`font-semibold ${
-        isActive("/orders")
-          ? "text-orange-500"
-          : "text-gray-700 hover:text-orange-500"
-      }`}
-    >
-      My Orders
-    </Link>
-
-    <Link
-      to="/account"
-      onClick={() => setIsOpen && setIsOpen(false)}
-      className={`font-semibold ${
-        isActive("/account")
-          ? "text-orange-500"
-          : "text-gray-700 hover:text-orange-500"
-      }`}
-    >
-      Account
-    </Link>
-
-    <Link
-      to="/auth"
-      onClick={() => setIsOpen && setIsOpen(false)}
-      className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded"
-    >
-      Login
-    </Link>
-  </>
-);
 
 export default Navbar;

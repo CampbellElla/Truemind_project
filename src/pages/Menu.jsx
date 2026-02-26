@@ -35,8 +35,8 @@ import useAddToCart from "../hooks/useAddToCart.js";
  */
 
 const Menu = () => {
-  // Use consolidated hook for cart functionality
-  const { cartMessage, handleAddToCart } = useAddToCart();
+  // Use consolidated hook for cart functionality with redirect
+  const { cartMessage, handleAddToCart, redirectToOrderSummary } = useAddToCart();
 
   // Helper to parse price string to number
   const parsePrice = (priceStr) =>
@@ -91,7 +91,7 @@ const Menu = () => {
       id: 2,
       name: "Jollof Rice with Chicken Nuggets",
       description:
-        "Chicken Nuggets with coleslaw coating and plantain served with hot rice",
+        "With plantain, extra pepper sauce",
       price: "₦2,500",
       priceValue: 2500,
       image: "/food10.png",
@@ -154,6 +154,7 @@ const Menu = () => {
   /**
    * Handle add to cart from FoodCard
    * Uses consolidated hook for consistent behavior
+   * IMPROVEMENT: Added redirect to Order Summary after adding item
    */
   const onAddToCart = (item) => {
     handleAddToCart(item.name, {
@@ -164,7 +165,7 @@ const Menu = () => {
       unitPrice: item.priceValue || parsePrice(item.price),
       qty: 1,
       options: {},
-    });
+    }, redirectToOrderSummary); // Redirect to Order Summary after add
   };
 
   return (
@@ -236,6 +237,7 @@ const Menu = () => {
                   price={item.price}
                   priceValue={item.priceValue}
                   onAddToCart={() => onAddToCart(item)}
+                  buttonStyle="text"
                 />
               ))}
             </div>

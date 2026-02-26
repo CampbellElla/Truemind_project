@@ -65,12 +65,13 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div
-            className="text-orange-500 text-2xl italic font-light tracking-wider mb-3"
-            style={{ fontFamily: ' "Island Moments, cursive"' }}
-          >
-            Chuks Kitchen
-          </div>
+          {/* Chuks Kitchen Logo - IMPROVEMENT: Replaced text with image, increased size */}
+          <img
+            src="/Chuks Kitchen.png"
+            alt="Chuks Kitchen"
+            className="mb-4"
+            style={{ width: '220px', height: 'auto' }}
+          />
 
           {/* Heading */}
           <h1 className="text-3xl sm:text-4xl lg:text-3xl font-bold text-gray-900 leading-tight">

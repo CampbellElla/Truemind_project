@@ -52,12 +52,6 @@ const OrderSummary = ({ onClose }) => {
     if (onClose) onClose();
   };
 
-  // Parse price from string to number for calculations
-  const parsePrice = (priceStr) =>
-    parseInt((priceStr || "").replace(/[^0-9]/g, ""), 10) || 0;
-
-  const priceValue = selectedItem.priceValue || parsePrice(selectedItem.price);
-
   return (
     <div className="fixed bottom-0 left-0 right-0 md:bottom-4 md:left-auto md:right-4 md:w-96 bg-white shadow-2xl rounded-t-2xl md:rounded-xl z-50 overflow-hidden">
       {/* Header */}
@@ -78,7 +72,7 @@ const OrderSummary = ({ onClose }) => {
       <div className="p-4">
         {/* Food Item Info */}
         <div className="flex gap-4 mb-4">
-          <div className="w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden">
+          <div className="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
             <img
               src={selectedItem.image}
               alt={selectedItem.name}

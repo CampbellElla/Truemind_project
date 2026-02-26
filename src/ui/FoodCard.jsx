@@ -37,6 +37,7 @@ const FoodCard = ({
   priceValue,
   onAddToCart,
   onItemClick,
+  buttonStyle = "icon", // "icon" or "text"
 }) => {
   const { selectItem } = useCart();
 
@@ -117,13 +118,23 @@ const FoodCard = ({
         {/* Price and Add to Cart Button */}
         <div className="flex justify-between items-center">
           <div className="text-lg font-bold text-orange-500">{price}</div>
-          <button
-            onClick={handlePlusClick}
-            className="bg-orange-500 hover:bg-orange-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition duration-200"
-            aria-label={`Add ${name} to cart`}
-          >
-            <FiPlus className="text-white text-xl" />
-          </button>
+          {buttonStyle === "text" ? (
+            <button
+              onClick={handlePlusClick}
+              className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded transition duration-200"
+              aria-label={`Add ${name} to cart`}
+            >
+              Add to Cart
+            </button>
+          ) : (
+            <button
+              onClick={handlePlusClick}
+              className="bg-orange-500 hover:bg-orange-600 text-white w-10 h-10 rounded-full flex items-center justify-center transition duration-200"
+              aria-label={`Add ${name} to cart`}
+            >
+              <FiPlus className="text-white text-xl" />
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -25,9 +25,13 @@ const ExploreHero = () => {
       <div className="relative h-full flex items-center justify-between px-6 sm:px-8 lg:px-16">
         {/* Left: Restaurant Info */}
         <div>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2">
-            Chuks Kitchen
-          </h1>
+          {/* IMPROVEMENT: Replaced text with image logo, increased size */}
+          <img 
+            src="/Chuks Kitchen.png" 
+            alt="Chuks Kitchen" 
+            className="mb-3"
+            style={{ width: '240px', height: 'auto' }}
+          />
           <p className="text-sm sm:text-base text-gray-100">
             Chuks Kitchen Nigerian Home Cooking 4.8 (1.2k)
           </p>

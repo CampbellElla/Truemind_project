@@ -6,7 +6,7 @@ import { FcGoogle } from "react-icons/fc";
  * AuthForm Component
  *
  * Authentication form with split-screen layout:
- * - Left side: Image with orange overlay and "Chuks Kitchen" text
+ * - Left side: Image with orange overlay and "Chuks Kitchen" image logo
  * - Right side: Togglable Login/Create Account form
  *
  * State Management:
@@ -42,7 +42,12 @@ const AuthForm = () => {
 
         <div className="absolute inset-0 bg-orange-500 bg-opacity-80 flex items-center px-8 lg:px-16">
           <div className="text-white max-w-md space-y-4">
-            <h1 className="text-3xl font-bold">Chuks Kitchen</h1>
+            {/* IMPROVEMENT: Replaced text with image logo, increased size */}
+            <img 
+              src="/Chuks Kitchen.png" 
+              alt="Chuks Kitchen" 
+              style={{ width: '240px', height: 'auto', marginBottom: '16px' }}
+            />
             <p className="text-sm leading-relaxed">
               Your journey to delicious, authentic Nigerian meals starts here.
               Sign up or log in to explore your favorites today.
@@ -166,7 +171,7 @@ const AuthForm = () => {
           <p className="text-sm text-gray-600 text-center">
             {isLogin ? (
               <>
-                Don’t have an account?{" "}
+                Don't have an account?{" "}
                 <button
                   onClick={() => setIsLogin(false)}
                   className="text-blue-500 font-normal"

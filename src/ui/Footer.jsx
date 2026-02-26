@@ -30,9 +30,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Column 1 - About */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-orange-300">
-              Chuks Kitchen
-            </h3>
+            {/* IMPROVEMENT: Replaced text with image logo, increased size */}
+            <img 
+              src="/Chuks Kitchen.png" 
+              alt="Chuks Kitchen" 
+              className="mb-5"
+              style={{ width: '180px', height: 'auto' }}
+            />
             <p className="text-sm leading-relaxed max-w-xs">
               Bringing the authentic flavors of Nigerian home cooking to your
               table, with passion and care.

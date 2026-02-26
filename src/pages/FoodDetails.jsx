@@ -4,6 +4,7 @@ import Navbar from "../ui/Navbar.jsx";
 import Footer from "../ui/Footer.jsx";
 import { useCart } from "../context/CartContext.jsx";
 import OrderSummary from "../ui/OrderSummary.jsx";
+import useAddToCart from "../hooks/useAddToCart.js";
 
 const mockFoods = [
   {
@@ -29,12 +30,34 @@ const mockFoods = [
 const FoodDetails = () => {
   const { id } = useParams();
   const foodId = parseInt(id, 10);
-  const food = mockFoods.find((f) => f.id === foodId) || mockFoods[0];
-
-  const [selectedProtein, setSelectedProtein] = useState(food.proteins[0].id);
+  const food = mockFoods.find((f) => f.id === foodId);
+  
+  // State hooks - must be called unconditionally
+  const [selectedProtein, setSelectedProtein] = useState(food?.proteins?.[0]?.id || "");
   const [selectedSides, setSelectedSides] = useState([]);
   const [notes, setNotes] = useState("");
   const [quantity, setQuantity] = useState(1);
+
+  // Cart hooks - must be called unconditionally
+  const { addItem, selectItem } = useCart();
+  const { cartMessage, handleAddToCart: showToastAndRedirect, redirectToOrderSummary } = useAddToCart();
+
+  // If food not found, show message
+  if (!food) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-grow flex items-center justify-center">
+          <div className="text-center p-8">
+            <h2 className="text-2xl font-bold text-gray-700">Item not found</h2>
+            <p className="text-gray-500 mt-2">This food item is not available.</p>
+            <a href="/explore" className="inline-block mt-4 bg-orange-500 text-white px-4 py-2 rounded">Back to Menu</a>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   const toggleSide = (sideId) => {
     setSelectedSides((prev) =>
@@ -47,12 +70,11 @@ const FoodDetails = () => {
   const decrease = () => setQuantity((q) => Math.max(1, q - 1));
   const increase = () => setQuantity((q) => q + 1);
 
-  const { addItem, selectItem } = useCart();
-
   const parsePrice = (priceStr) =>
     parseInt((priceStr || "").replace(/[^0-9]/g, ""), 10) || 0;
 
-  const handleAddToCart = () => {
+  // IMPROVEMENT: Renamed to handleAddToCartWithOptions to avoid conflict
+  const handleAddToCartWithOptions = () => {
     const base = parsePrice(food.price);
     const protein = food.proteins.find((p) => p.id === selectedProtein) || {
       price: 0,
@@ -81,6 +103,9 @@ const FoodDetails = () => {
       qty: quantity,
       options,
     });
+    
+    // IMPROVEMENT: Show toast and redirect to Order Summary
+    showToastAndRedirect(food.name, null, redirectToOrderSummary);
   };
 
   /**
@@ -197,17 +222,17 @@ const FoodDetails = () => {
             {/* Quantity + Add to Cart */}
             <div className="flex items-center gap-4">
               <div className="flex items-center border border-gray-200 rounded overflow-hidden">
-                <button onClick={decrease} className="px-3 py-2">
-                  -
-                </button>
-                <div className="px-4 py-2">{quantity}</div>
                 <button onClick={increase} className="px-3 py-2">
                   +
+                </button>
+                <div className="w-12 text-center tabular-nums">{quantity}</div>
+                <button onClick={decrease} className="px-3 py-2">
+                  -
                 </button>
               </div>
 
               <button
-                onClick={handleAddToCart}
+                onClick={handleAddToCartWithOptions}
                 className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded"
               >
                 Add to Cart
@@ -219,6 +244,13 @@ const FoodDetails = () => {
 
       {/* Order Summary - Shows when the food item image is clicked */}
       <OrderSummary />
+
+      {/* Cart Message Toast - IMPROVEMENT: Added toast notification */}
+      {cartMessage && (
+        <div className="fixed bottom-8 right-6 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+          {cartMessage}
+        </div>
+      )}
 
       <Footer />
     </div>
