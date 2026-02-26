@@ -12,6 +12,7 @@ A modern, responsive food delivery website built with React.js, Vite, and Tailwi
 - **Food Details Page**: Detailed view of each food item with customization options (protein, sides, special instructions)
 - **Authentication Page**: Login/Sign-up interface with split-screen design
 - **Orders Page**: View cart and order history
+- **Fixed Navbar**: Navigation stays fixed at top while scrolling
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
 - **Modern UI**: Clean, professional design using orange as the primary brand color
 
@@ -25,6 +26,8 @@ A modern, responsive food delivery website built with React.js, Vite, and Tailwi
 | `/food/:id` | FoodDetails | Detailed food item with customization |
 | `/orders` | Orders | Cart and order management |
 | `/auth` | Auth | Login/Signup page |
+
+**Navbar Links:** Home | Explore | My Orders | Account | Login
 
 ## 📁 Project Structure
 
@@ -120,6 +123,8 @@ npm run preview
 - Updated Navbar logo to link to `/onboarding` instead of `/`
 - "Learn More About Us" button now navigates to home page (`/`) instead of `/menu`
 - "Start Your Order" button navigates to `/auth` (authentication page)
+- Made navbar fixed/static at the top of the page
+- Navbar now shows: Home, Explore, My Orders, Account (display only), Login
 
 ### Food Details Page
 

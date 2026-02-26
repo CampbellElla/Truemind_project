@@ -26,7 +26,7 @@ const Orders = () => {
   );
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-50 pt-16">
       <Navbar />
 
       <main className="flex-grow w-full px-4 sm:px-6 lg:px-16 py-8 sm:py-12">

@@ -347,7 +347,7 @@ const FoodDetails = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col pt-16">
       <Navbar />
 
       <main className="flex-grow w-full px-6 lg:px-16 py-16">

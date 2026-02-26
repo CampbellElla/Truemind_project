@@ -26,7 +26,7 @@ const Navbar = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-6 lg:px-16 py-4">
         <div className="flex justify-between items-center">
           {/* Logo - Far Left */}
@@ -76,10 +76,9 @@ const Navbar = () => {
               My Orders
             </Link>
 
-            {/* Account - Far Right */}
+            {/* Account - No routing, display only */}
             <span
               className="font-semibold text-gray-400 cursor-not-allowed"
-              title="Account page coming soon"
             >
               Account
             </span>
