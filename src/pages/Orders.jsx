@@ -97,7 +97,7 @@ const Orders = () => {
                             >
                               <FiPlus />
                             </button>
-                            <span className="w-12 text-center font-medium text-sm sm:text-base tabular-nums">
+                            <span className="w-8 sm:w-10 text-center font-medium text-sm sm:text-base tabular-nums flex-shrink-0">
                               {item.qty}
                             </span>
                             <button
